@@ -11,8 +11,11 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/shared/components/ui";
+import { useRegister } from "../hooks";
 
 export function RegisterForm() {
+  const { mutate: register, isPending } = useRegister();
+
   const form = useForm<TypeRegisterSchema>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -24,7 +27,8 @@ export function RegisterForm() {
   });
 
   const onSubmit = (values: TypeRegisterSchema) => {
-    console.log(values);
+    const { passwordRepeat: _, ...payload } = values;
+    register(payload);
   };
 
   return (
@@ -134,7 +138,7 @@ export function RegisterForm() {
         className="w-full mt-6 h-10 font-medium"
         disabled={form.formState.isSubmitting}
       >
-        {form.formState.isSubmitting ? "Creating account..." : "Sign up"}
+        {isPending ? "Creating account..." : "Sign up"}
       </Button>
     </AuthWrapper>
   );

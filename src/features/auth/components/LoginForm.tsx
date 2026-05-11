@@ -11,8 +11,11 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/shared/components/ui";
+import { useLogin } from "../hooks";
 
 export function LoginForm() {
+  const { mutate: login, isPending } = useLogin();
+
   const form = useForm<TypeLoginSchema>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -22,7 +25,7 @@ export function LoginForm() {
   });
 
   const onSubmit = (values: TypeLoginSchema) => {
-    console.log(values);
+    login(values);
   };
 
   return (
@@ -89,7 +92,7 @@ export function LoginForm() {
         className="w-full mt-6 h-10 font-medium"
         disabled={form.formState.isSubmitting}
       >
-        {form.formState.isSubmitting ? "Signing in..." : "Sign in"}
+        {isPending ? "Signing in..." : "Sign in"}
       </Button>
     </AuthWrapper>
   );
