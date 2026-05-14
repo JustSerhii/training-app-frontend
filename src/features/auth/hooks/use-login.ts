@@ -12,7 +12,7 @@ export function useLogin() {
     onSuccess: (data) => {
       toast.success(`Welcome back, ${data.name}!`);
       // TODO page after auth redirection
-      router.push("/");
+      router.push("/workouts");
     },
     onError: (error: Error) => {
       toast.error(error.message);

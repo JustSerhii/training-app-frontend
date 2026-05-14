@@ -1,7 +1,5 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 const AUTH_ENDPOINTS = ["/auth/login", "/auth/register", "/auth/refresh"];
-
-
 let accessToken: string | null = null;
 
 export const setAccessToken = (token: string | null) => {
@@ -88,6 +86,15 @@ export const apiClient = {
   post: <T>(endpoint: string, body?: unknown) =>
     request<T>(endpoint, {
       method: "POST",
+      body: body ? JSON.stringify(body) : undefined,
+    }),
+  delete: <T>(endpoint: string) =>
+    request<T>(endpoint, {
+      method: "DELETE",
+    }),
+  patch: <T>(endpoint: string, body?: unknown) =>
+    request<T>(endpoint, {
+      method: "PATCH",
       body: body ? JSON.stringify(body) : undefined,
     }),
 };
