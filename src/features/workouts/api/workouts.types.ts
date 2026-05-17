@@ -32,3 +32,47 @@ export interface PaginationParams {
   page?: number;
   limit?: number;
 }
+
+export interface Exercise {
+  id: string;
+  title: string;
+  muscleGroups: string[];
+}
+
+export interface WorkoutSet {
+  id: string;
+  weight: number | null;
+  order: number;
+  reps: number;
+  type: string;
+  workoutExerciseId: string;
+}
+
+export interface WorkoutExercise {
+  id: string;
+  description: string | null;
+  workoutId: string;
+  order: number;
+  exercise: Exercise;
+  sets: WorkoutSet[];
+}
+
+export interface FullWorkout {
+  id: string;
+  title: string;
+  description?: string | null;
+  createdAt: string;
+  workoutExercises: WorkoutExercise[];
+}
+
+export interface CreateWorkoutExercisePayload {
+  exerciseId: string;
+  description?: string;
+}
+
+export interface CursorPaginatedResponse<T> {
+  data: T[];
+  lastId: string | null;
+  total: number;
+  hasNextPage: boolean;
+}
