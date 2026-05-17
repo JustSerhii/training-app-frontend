@@ -144,3 +144,401 @@
     @apply font-normal;
   }
 }
+
+.workouts-page {
+  @apply min-h-screen px-4 py-10;
+  background: linear-gradient(135deg, var(--background) 0%, var(--background) 100%);
+}
+
+.workouts-page__inner {
+  @apply max-w-6xl mx-auto flex flex-col gap-8;
+}
+
+/* Header */
+.workouts-header {
+  @apply flex items-end justify-between;
+}
+
+.workouts-header__title {
+  @apply text-4xl md:text-5xl font-bold tracking-tight text-foreground;
+  background: linear-gradient(135deg, var(--foreground) 0%, var(--foreground) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.workouts-header__sub {
+  @apply mt-2 text-base text-muted-foreground font-medium;
+}
+
+.workouts-header__count {
+  @apply px-3 py-1 rounded-full bg-muted text-sm font-semibold text-muted-foreground border border-border/50;
+}
+
+/* Layout */
+.workouts-layout {
+  @apply flex flex-col gap-8 lg:flex-row lg:items-start;
+}
+
+/* Sidebar */
+.workouts-sidebar {
+  @apply w-full lg:w-96 shrink-0;
+}
+
+.workouts-sidebar__sticky {
+  @apply sticky top-6 rounded-3xl border border-border bg-card p-7 flex flex-col gap-5 shadow-lg backdrop-blur-sm;
+  background: linear-gradient(135deg, rgba(var(--card-rgb, 255, 255, 255), 0.95) 0%, rgba(var(--card-rgb, 255, 255, 255), 0.9) 100%);
+}
+
+.workouts-sidebar__label {
+  @apply text-sm font-bold text-foreground uppercase tracking-wider;
+}
+
+/* Main */
+.workouts-main {
+  @apply flex-1 flex flex-col gap-6;
+}
+
+/* Grid */
+.workouts-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6;
+}
+
+/* Skeleton */
+.workouts-skeleton {
+  @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6;
+}
+
+.workouts-skeleton__card {
+  @apply h-48 rounded-3xl bg-gradient-to-br from-muted to-muted/50 animate-pulse;
+}
+
+/* Empty */
+.workouts-empty {
+  @apply flex flex-col items-center justify-center gap-3 py-32 text-center;
+}
+
+.workouts-empty__icon {
+  @apply text-6xl transform hover:scale-110 transition-transform;
+}
+
+.workouts-empty__title {
+  @apply text-2xl font-bold text-foreground;
+}
+
+.workouts-empty__sub {
+  @apply text-base text-muted-foreground;
+}
+
+/* Pagination */
+.workouts-pagination {
+  @apply flex items-center justify-center gap-4 pt-4;
+}
+
+.workouts-pagination__btn {
+  @apply px-5 py-2.5 text-sm font-medium rounded-lg border border-border text-foreground bg-card hover:bg-muted transition-all hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed;
+}
+
+.workouts-pagination__pages {
+  @apply flex gap-2;
+}
+
+.workouts-pagination__page {
+  @apply w-9 h-9 rounded-lg text-sm font-medium text-muted-foreground hover:bg-muted transition-all hover:scale-110;
+}
+
+.workouts-pagination__page--active {
+  @apply bg-gradient-to-br from-primary to-primary/80 text-primary-foreground hover:from-primary hover:to-primary;
+}
+
+/* ─── Workout Card ───────────────────────────────────────────── */
+
+.workout-card {
+  @apply flex flex-col justify-between rounded-3xl border border-border bg-card p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden;
+  background: linear-gradient(135deg, var(--card) 0%, rgba(var(--card-rgb, 255, 255, 255), 0.95) 100%);
+}
+
+.workout-card__body {
+  @apply flex flex-col gap-2 mb-6;
+}
+
+.workout-card__date {
+  @apply text-xs font-bold text-muted-foreground uppercase tracking-wider;
+}
+
+.workout-card__title {
+  @apply text-xl font-bold text-foreground leading-snug;
+}
+
+.workout-card__desc {
+  @apply text-sm text-muted-foreground line-clamp-3 mt-2;
+}
+
+.workout-card__footer {
+  @apply flex gap-2 pt-5 border-t border-border/30;
+}
+
+.workout-card__btn {
+  @apply flex-1 py-2.5 text-sm font-semibold rounded-lg border border-border text-foreground bg-background hover:bg-muted transition-all hover:scale-105 active:scale-95;
+}
+
+.workout-card__btn--danger {
+  @apply text-destructive hover:bg-destructive/10 border-destructive/30 hover:border-destructive/50;
+}
+
+/* ─── Workout Form ───────────────────────────────────────────── */
+
+.workout-form {
+  @apply flex flex-col gap-5;
+}
+
+.workout-form__field {
+  @apply flex flex-col gap-2;
+}
+
+.workout-form__label {
+  @apply text-sm font-bold text-foreground uppercase tracking-wider;
+}
+
+.workout-form__input,
+.workout-form__textarea {
+  @apply w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all;
+}
+
+.workout-form__textarea {
+  @apply resize-none;
+}
+
+.workout-form__error {
+  @apply text-xs text-destructive font-semibold;
+}
+
+.workout-form__actions {
+  @apply flex gap-3 pt-2;
+}
+
+.workout-form__submit {
+  @apply flex-1 py-3 rounded-xl bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-sm font-bold hover:shadow-lg hover:from-primary hover:to-primary transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.workout-form__cancel {
+  @apply px-5 py-3 rounded-xl border border-border text-sm font-semibold text-foreground hover:bg-muted transition-all hover:scale-105 active:scale-95;
+}
+
+.workout-detail-page {
+  @apply min-h-screen px-4 py-10;
+  background: linear-gradient(135deg, var(--background) 0%, var(--background) 100%);
+}
+
+.workout-detail__inner {
+  @apply max-w-4xl mx-auto flex flex-col gap-8;
+}
+
+/* Back */
+.workout-detail-back {
+  @apply text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors w-fit flex items-center gap-2;
+}
+
+/* Header */
+.workout-detail-header {
+  @apply flex items-start justify-between gap-6;
+}
+
+.workout-detail-header__title {
+  @apply text-4xl md:text-5xl font-bold tracking-tight text-foreground;
+  background: linear-gradient(135deg, var(--foreground) 0%, var(--foreground) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.workout-detail-header__date {
+  @apply block text-sm font-semibold text-muted-foreground mt-2 uppercase tracking-wider;
+}
+
+.workout-detail-header__desc {
+  @apply text-base text-muted-foreground mt-3 max-w-2xl;
+}
+
+.workout-detail-header__badge {
+  @apply shrink-0 px-4 py-2 rounded-full border border-primary/30 text-sm font-bold text-primary bg-primary/10 backdrop-blur-sm;
+}
+
+/* Add exercise */
+.workout-detail-add {
+  @apply rounded-3xl border border-border bg-card p-7 flex flex-col gap-4 shadow-lg;
+  background: linear-gradient(135deg, rgba(var(--card-rgb, 255, 255, 255), 0.95) 0%, rgba(var(--card-rgb, 255, 255, 255), 0.9) 100%);
+}
+
+.workout-detail-add__label {
+  @apply text-sm font-bold text-foreground uppercase tracking-wider;
+}
+
+.workout-detail-add__row {
+  @apply flex gap-3;
+}
+
+.workout-detail-add__input {
+  @apply flex-1 rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-all;
+}
+
+.workout-detail-add__btn {
+  @apply px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-sm font-bold hover:shadow-lg transition-all active:scale-95 disabled:opacity-50;
+}
+
+/* Empty */
+.workout-detail-empty {
+  @apply flex flex-col items-center justify-center gap-3 py-32 text-center;
+}
+
+.workout-detail-empty__icon {
+  @apply text-6xl transform hover:scale-110 transition-transform;
+}
+
+.workout-detail-empty__title {
+  @apply text-2xl font-bold text-foreground;
+}
+
+.workout-detail-empty__sub {
+  @apply text-base text-muted-foreground;
+}
+
+/* Skeleton */
+.workout-detail-skeleton {
+  @apply flex flex-col gap-6;
+}
+
+.workout-detail-skeleton__title {
+  @apply h-11 w-72 rounded-2xl bg-gradient-to-br from-muted to-muted/50 animate-pulse;
+}
+
+.workout-detail-skeleton__sub {
+  @apply h-5 w-48 rounded-lg bg-gradient-to-br from-muted to-muted/50 animate-pulse;
+}
+
+.workout-detail-skeleton__card {
+  @apply h-56 rounded-3xl bg-gradient-to-br from-muted to-muted/50 animate-pulse;
+}
+
+/* Exercises list */
+.workout-detail-exercises {
+  @apply flex flex-col gap-5;
+}
+
+/* ─── Exercise Card ──────────────────────────────────────────── */
+
+.exercise-card {
+  @apply rounded-2xl border border-border bg-card shadow-sm overflow-hidden;
+}
+
+.exercise-card__header {
+  @apply flex items-start justify-between gap-4 p-5;
+}
+
+.exercise-card__header-left {
+  @apply flex items-start gap-4;
+}
+
+.exercise-card__index {
+  @apply shrink-0 w-7 h-7 rounded-full bg-muted flex items-center justify-center text-xs font-semibold text-muted-foreground;
+}
+
+.exercise-card__title {
+  @apply text-base font-semibold text-foreground;
+}
+
+.exercise-card__muscles {
+  @apply flex flex-wrap gap-1 mt-1;
+}
+
+.exercise-card__muscle-tag {
+  @apply px-2 py-0.5 rounded-full bg-muted text-xs text-muted-foreground;
+}
+
+.exercise-card__desc {
+  @apply text-sm text-muted-foreground mt-1;
+}
+
+.exercise-card__delete {
+  @apply shrink-0 text-sm text-destructive hover:underline transition-colors disabled:opacity-50;
+}
+
+/* Sets */
+.exercise-card__sets {
+  @apply border-t border-border px-5 py-4;
+}
+
+.exercise-card__no-sets {
+  @apply text-sm text-muted-foreground;
+}
+
+/* ─── Sets Table ─────────────────────────────────────────────── */
+
+.sets-table {
+  @apply w-full text-sm;
+}
+
+.sets-table__th {
+  @apply text-left text-xs font-medium text-muted-foreground pb-2 pr-6;
+}
+
+.sets-table__row {
+  @apply border-t border-border/50;
+}
+
+.sets-table__td {
+  @apply py-2 pr-6 text-foreground;
+}
+
+.sets-table__td--num {
+  @apply text-muted-foreground font-medium w-8;
+}
+
+.sets-table__type {
+  @apply px-2 py-0.5 rounded-full bg-muted text-xs text-muted-foreground capitalize;
+}
+
+/* ─── Edit Modal ───────────────────────────── */
+
+.modal-overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.modal-content {
+  @apply relative w-full max-w-lg rounded-3xl border border-border bg-card p-6 shadow-2xl;
+  animation: modalIn 0.2s ease;
+}
+
+.modal-close {
+  @apply absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.sets-add {
+  @apply flex gap-2 mt-3 pt-3 border-t border-border/50;
+}
+
+.sets-add__input {
+  @apply w-28 rounded-lg border border-input bg-background px-3 py-1.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition;
+}
+
+.sets-add__btn {
+  @apply px-3 py-1.5 rounded-lg bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.sets-table__delete {
+  @apply text-xs text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50;
+}
