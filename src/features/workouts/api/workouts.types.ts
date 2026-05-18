@@ -76,3 +76,22 @@ export interface CursorPaginatedResponse<T> {
   total: number;
   hasNextPage: boolean;
 }
+
+export interface CreateSetPayload {
+  weight?: number;
+  reps: number;
+  type?: SetType;
+}
+
+export interface UpdateSetPayload {
+  weight?: number;
+  reps?: number;
+  type?: SetType;
+}
+
+export enum SetType {
+  warmup = "warmup",
+  failure = "failure",
+  dropset = "dropset",
+  normal = "normal",
+}

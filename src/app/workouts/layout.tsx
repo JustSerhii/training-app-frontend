@@ -1,7 +1,14 @@
+import { Sidebar } from "@/shared/components/Sidebar";
+
 export default function WorkoutsLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <div className="app-layout">
+      <Sidebar />
+      <main className="app-main">{children}</main>
+    </div>
+  );
 }

@@ -146,7 +146,7 @@
 }
 
 .workouts-page {
-  @apply min-h-screen px-4 py-10;
+  @apply min-h-screen px-6 py-8;
   background: linear-gradient(135deg, var(--background) 0%, var(--background) 100%);
 }
 
@@ -326,7 +326,7 @@
 }
 
 .workout-detail-page {
-  @apply min-h-screen px-4 py-10;
+  @apply min-h-screen px-6 py-8;
   background: linear-gradient(135deg, var(--background) 0%, var(--background) 100%);
 }
 
@@ -541,4 +541,95 @@
 
 .sets-table__delete {
   @apply text-xs text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50;
+}
+
+/* ─── App Layout ─────────────────────────────────────────────── */
+
+.app-layout {
+  @apply flex min-h-screen;
+}
+
+.app-main {
+  @apply flex-1 overflow-auto;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────── */
+
+.app-sidebar {
+  @apply flex flex-col shrink-0 min-h-screen border-r border-sidebar-border bg-sidebar px-3 py-5 sticky top-0 h-screen transition-all duration-300 ease-in-out;
+  width: 15rem;
+  /* 240px */
+}
+
+.app-sidebar--collapsed {
+  width: 4rem;
+  /* 64px */
+}
+
+/* Header */
+.app-sidebar__header {
+  @apply flex items-center justify-between mb-8 px-1;
+}
+
+.app-sidebar__logo {
+  @apply flex items-center gap-2.5 overflow-hidden;
+}
+
+.app-sidebar__logo-icon {
+  @apply text-2xl shrink-0;
+}
+
+.app-sidebar__logo-text {
+  @apply text-base font-bold text-sidebar-foreground tracking-tight whitespace-nowrap overflow-hidden;
+}
+
+/* Toggle button */
+.app-sidebar__toggle {
+  @apply shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors ml-auto;
+}
+
+.app-sidebar__toggle-icon {
+  @apply transition-transform duration-300;
+}
+
+.app-sidebar__toggle-icon--flipped {
+  @apply rotate-180;
+}
+
+/* Nav */
+.app-sidebar__nav {
+  @apply flex flex-col gap-1 flex-1;
+}
+
+.app-sidebar__link {
+  @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors overflow-hidden;
+}
+
+.app-sidebar--collapsed .app-sidebar__link {
+  @apply justify-center px-2;
+}
+
+.app-sidebar__link--active {
+  @apply bg-sidebar-accent text-sidebar-accent-foreground font-semibold;
+}
+
+.app-sidebar__link-icon {
+  @apply shrink-0 text-current;
+}
+
+.app-sidebar__link-label {
+  @apply truncate whitespace-nowrap;
+}
+
+/* Bottom */
+.app-sidebar__bottom {
+  @apply pt-3 border-t border-sidebar-border;
+}
+
+.app-sidebar__logout {
+  @apply flex items-center gap-3 px-3 py-2.5 rounded-xl w-full text-sm font-medium text-muted-foreground hover:bg-sidebar-accent hover:text-destructive transition-colors disabled:opacity-50 overflow-hidden;
+}
+
+.app-sidebar--collapsed .app-sidebar__logout {
+  @apply justify-center px-2;
 }

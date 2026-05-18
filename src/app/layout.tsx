@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../shared/globals.css";
 import { MainProvider } from "@/shared/providers";
-import { ToggleTheme } from "@/shared/components/ui";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,14 +30,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <MainProvider>
-          <div className="relative flex min-h-screen flex-col">
-            <ToggleTheme />
-              <div className="flex h-screen w-full items-center justify-center px-4">
-                  {children}
-              </div>
-          </div>
-        </MainProvider>
+        <MainProvider>{children}</MainProvider>
       </body>
     </html>
   );
