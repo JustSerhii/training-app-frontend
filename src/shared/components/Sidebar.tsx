@@ -25,7 +25,7 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: "/me",
+    href: "/profile",
     label: "Profile",
     icon: (
       <svg
