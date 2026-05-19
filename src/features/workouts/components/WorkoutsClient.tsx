@@ -1,10 +1,12 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useGetWorkouts } from "@/features/workouts/hooks/use-get-workouts";
 import { useCreateWorkout } from "@/features/workouts/hooks/use-create-workout";
 import { useUpdateWorkout } from "@/features/workouts/hooks/use-update-workout";
 import { useDeleteWorkout } from "@/features/workouts/hooks/use-delete-workout";
+import { useDebounce } from "@/shared/hooks/use-debounce";
 import { WorkoutCard, WorkoutForm } from ".";
 import { EditModal } from "./EditModal";
 
@@ -14,9 +16,30 @@ export function WorkoutsClient() {
 
   const page = Number(searchParams.get("page") ?? 1);
   const limit = Number(searchParams.get("limit") ?? 9);
-  const editId = searchParams.get("edit"); // modal state management via URL
+  const editId = searchParams.get("edit");
 
-  const { data, isLoading } = useGetWorkouts({ page, limit });
+  const searchFromUrl = searchParams.get("search") ?? "";
+  const [searchInput, setSearchInput] = useState(searchFromUrl);
+  const debouncedSearch = useDebounce(searchInput, 300);
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (debouncedSearch.trim()) {
+      params.set("search", debouncedSearch.trim());
+      params.set("page", "1"); 
+    } else {
+      params.delete("search");
+    }
+    router.push(`/workouts?${params.toString()}`, { scroll: false });
+  }, [debouncedSearch]);
+
+  const { data, isLoading } = useGetWorkouts({
+    page,
+    limit,
+    search: debouncedSearch.trim() || undefined,
+  });
+
   const createWorkout = useCreateWorkout();
   const updateWorkout = useUpdateWorkout();
   const deleteWorkout = useDeleteWorkout();
@@ -65,6 +88,28 @@ export function WorkoutsClient() {
           )}
         </div>
 
+        <div className="workouts-search">
+          <div className="workouts-search__icon">🔍</div>
+          <input
+            type="search"
+            placeholder="Search workouts..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            className="workouts-search__input"
+            aria-label="Search workouts"
+          />
+          {searchInput && (
+            <button
+              type="button"
+              onClick={() => setSearchInput("")}
+              className="workouts-search__clear"
+              aria-label="Clear search"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+
         <div className="workouts-layout">
           <aside className="workouts-sidebar">
             <div className="workouts-sidebar__sticky">
@@ -86,9 +131,13 @@ export function WorkoutsClient() {
             ) : workouts.length === 0 ? (
               <div className="workouts-empty">
                 <span className="workouts-empty__icon">🏋️</span>
-                <p className="workouts-empty__title">No workouts yet</p>
+                <p className="workouts-empty__title">
+                  {searchInput ? "No workouts found" : "No workouts yet"}
+                </p>
                 <p className="workouts-empty__sub">
-                  Create your first workout to get started
+                  {searchInput
+                    ? "Try different search terms"
+                    : "Create your first workout to get started"}
                 </p>
               </div>
             ) : (
@@ -150,7 +199,7 @@ export function WorkoutsClient() {
         </div>
       </div>
 
-      {/* Edit modal — opens when there is ?edit= в URL */}
+      {/* Edit modal */}
       <EditModal isOpen={!!editId} onClose={closeEdit}>
         <h2 className="text-xl font-bold mb-4">Edit Workout</h2>
         <WorkoutForm

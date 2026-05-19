@@ -33,6 +33,10 @@ export interface PaginationParams {
   limit?: number;
 }
 
+export interface GetWorkoutsParams extends PaginationParams {
+  search?: string;
+}
+
 export interface Exercise {
   id: string;
   title: string;
