@@ -187,7 +187,6 @@
 
 .workouts-sidebar__sticky {
   @apply sticky top-6 rounded-3xl border border-border bg-card p-7 flex flex-col gap-5 shadow-lg backdrop-blur-sm;
-  background: linear-gradient(135deg, rgba(var(--card-rgb, 255, 255, 255), 0.95) 0%, rgba(var(--card-rgb, 255, 255, 255), 0.9) 100%);
 }
 
 .workouts-sidebar__label {
@@ -255,7 +254,6 @@
 
 .workout-card {
   @apply flex flex-col justify-between rounded-3xl border border-border bg-card p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden;
-  background: linear-gradient(135deg, var(--card) 0%, rgba(var(--card-rgb, 255, 255, 255), 0.95) 100%);
 }
 
 .workout-card__body {
@@ -327,7 +325,6 @@
 
 .workout-detail-page {
   @apply min-h-screen px-6 py-8;
-  background: linear-gradient(135deg, var(--background) 0%, var(--background) 100%);
 }
 
 .workout-detail__inner {
@@ -367,7 +364,6 @@
 /* Add exercise */
 .workout-detail-add {
   @apply rounded-3xl border border-border bg-card p-7 flex flex-col gap-4 shadow-lg;
-  background: linear-gradient(135deg, rgba(var(--card-rgb, 255, 255, 255), 0.95) 0%, rgba(var(--card-rgb, 255, 255, 255), 0.9) 100%);
 }
 
 .workout-detail-add__label {
@@ -501,8 +497,7 @@
 /* ─── Edit Modal ───────────────────────────── */
 
 .modal-overlay {
-  @apply fixed inset-0 z-50 flex items-center justify-center p-4;
-  background: rgba(0, 0, 0, 0.55);
+  @apply fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50;
   backdrop-filter: blur(6px);
 }
 
@@ -512,7 +507,7 @@
 }
 
 .modal-close {
-  @apply absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors;
+  @apply absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors text-lg;
 }
 
 @keyframes modalIn {
@@ -526,6 +521,8 @@
     transform: scale(1) translateY(0);
   }
 }
+
+/* ─── Sets Add ─────────────────────────────────────────────── */
 
 .sets-add {
   @apply flex gap-2 mt-3 pt-3 border-t border-border/50;
@@ -556,9 +553,9 @@
 /* ─── Sidebar ────────────────────────────────────────────────── */
 
 .app-sidebar {
-  @apply flex flex-col shrink-0 min-h-screen border-r border-sidebar-border bg-sidebar px-3 py-5 sticky top-0 h-screen transition-all duration-300 ease-in-out;
+  @apply flex flex-col shrink-0 min-h-screen border-r border-sidebar-border bg-sidebar px-3 py-5 sticky top-0 h-screen;
   width: 15rem;
-  /* 240px */
+  transition: width 300ms ease-in-out;
 }
 
 .app-sidebar--collapsed {

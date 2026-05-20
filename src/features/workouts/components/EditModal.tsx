@@ -13,7 +13,7 @@ export function EditModal({ isOpen, onClose, children }: EditModalProps) {
     if (!isOpen) return;
     const onEscape = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onEscape);
-    document.body.style.overflow = "hidden"; // block scrolling
+    document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onEscape);
       document.body.style.overflow = "";
@@ -23,19 +23,9 @@ export function EditModal({ isOpen, onClose, children }: EditModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div  
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-      onClick={onClose}
-    >
-      <div
-        className="bg-white rounded-lg p-6 max-w-lg w-full mx-4 relative"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-3 text-gray-500 hover:text-black text-xl"
-          type="button"
-        >
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <button onClick={onClose} className="modal-close" type="button">
           ✕
         </button>
         {children}

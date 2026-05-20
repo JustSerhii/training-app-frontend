@@ -1,5 +1,3 @@
-import { ToggleTheme } from "@/shared/components/ui";
-
 export default function AuthLayout({
   children,
 }: {
@@ -7,7 +5,6 @@ export default function AuthLayout({
 }) {
   return (
     <div className="flex min-h-screen w-full items-center justify-center px-4">
-      <ToggleTheme />
       {children}
     </div>
   );

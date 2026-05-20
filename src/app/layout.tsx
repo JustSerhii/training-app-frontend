@@ -18,18 +18,37 @@ export const metadata: Metadata = {
   description: "Training App",
 };
 
+const themeInitScript = `
+  (function() {
+    try {
+      var theme = localStorage.getItem('theme');
+      var root = document.documentElement;
+      if (theme === 'dark') {
+        root.classList.add('dark');
+      } else if (theme === 'system' || !theme) {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          root.classList.add('dark');
+        }
+      }
+    } catch (e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      suppressHydrationWarning
+      suppressHydrationWarning 
+      className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <body>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="antialiased">
         <MainProvider>{children}</MainProvider>
       </body>
     </html>
