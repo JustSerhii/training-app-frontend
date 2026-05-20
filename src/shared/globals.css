@@ -652,3 +652,138 @@
 .workouts-search__clear:hover {
   @apply text-destructive;
 }
+
+/* ─── Profile Page ───────────────────────────────────────────── */
+
+.profile-page {
+  @apply p-4 md:p-8 max-w-4xl mx-auto;
+}
+
+/* Header */
+.profile-header {
+  @apply mb-8 pb-6 border-b border-border;
+}
+
+.profile-header__title {
+  @apply text-3xl md:text-4xl font-bold text-foreground;
+}
+
+.profile-header__email {
+  @apply text-muted-foreground mt-2;
+}
+
+/* Section */
+.profile-section {
+  @apply space-y-6;
+}
+
+.profile-section__header {
+  @apply flex items-center justify-between;
+}
+
+.profile-section__title {
+  @apply text-xl font-semibold text-foreground;
+}
+
+.profile-badge {
+  @apply text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full;
+}
+
+.profile-records-list {
+  @apply space-y-4;
+}
+
+.profile-record-card {
+  @apply relative overflow-hidden rounded-2xl border border-border bg-card p-5 hover:shadow-lg hover:border-primary/30 transition-all duration-200;
+}
+
+.profile-record-card__accent {
+  @apply absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-primary/50 opacity-0 group-hover:opacity-100 transition-opacity;
+}
+
+.profile-record-card__hover-overlay {
+  @apply absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none;
+}
+
+/* Card Content */
+.profile-record-card__content {
+  @apply flex flex-col md:flex-row md:items-center md:justify-between gap-4;
+}
+
+.profile-record-card__info {
+  @apply flex-1 min-w-0;
+}
+
+.profile-record-card__title {
+  @apply text-lg font-semibold text-foreground truncate;
+}
+
+.profile-record-card__badges {
+  @apply flex flex-wrap items-center gap-3 mt-2;
+}
+
+.profile-badge-item {
+  @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-sm transition-colors;
+}
+
+.profile-badge-item__icon {
+  @apply w-3.5 h-3.5;
+}
+
+.profile-badge-item__icon--best {
+  @apply text-primary;
+}
+
+.profile-badge-item--max {
+  @apply bg-muted/50 text-muted-foreground hover:bg-muted;
+}
+
+.profile-badge-item__value {
+  @apply font-medium text-foreground;
+}
+
+.profile-badge-item--best {
+  @apply bg-primary/10 text-primary border border-primary/20;
+}
+
+.profile-badge-item--same {
+  @apply bg-muted/30 text-muted-foreground/70;
+}
+
+/* Metrics */
+.profile-record-card__metrics {
+  @apply flex items-center gap-6 md:border-l md:border-border md:pl-6;
+}
+
+.profile-record-metric {
+  @apply text-center md:text-right;
+}
+
+.profile-record-metric__label {
+  @apply text-xs uppercase tracking-wide text-muted-foreground font-medium;
+}
+
+.profile-record-metric__value {
+  @apply text-lg font-semibold text-foreground mt-1;
+}
+
+.profile-record-metric__value--primary {
+  @apply text-2xl font-bold text-primary;
+}
+
+/* Empty State */
+.profile-empty-state {
+  @apply flex flex-col items-center justify-center py-16 text-center border-2 border-dashed border-border rounded-2xl bg-muted/20;
+}
+
+.profile-empty-state__icon-wrapper {
+  @apply w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4;
+}
+
+.profile-empty-state__title {
+  @apply text-lg font-semibold text-foreground mb-2;
+}
+
+.profile-empty-state__sub {
+  @apply text-muted-foreground max-w-sm;
+}

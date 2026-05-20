@@ -12,6 +12,8 @@ export type ExerciseRecord = {
   maxWeight: number;
   maxReps: number;
   maxVolume: number;
+  bestReps: number;
+  bestWeight: number;
   estimatedOneRepMax: number;
   exerciseId: string;
   exerciseTitle: string;
