@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLogout } from "@/features/auth/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setTheme } from "../store/theme/theme.slice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectTheme } from "../store/theme/theme.selectors";
@@ -70,18 +70,38 @@ const NAV_ITEMS = [
 export function Sidebar() {
   const pathname = usePathname();
   const { mutate: logout, isPending } = useLogout();
-  const [collapsed, setCollapsed] = useState(false);
-
   const dispatch = useAppDispatch();
   const theme = useAppSelector(selectTheme);
 
+  const [collapsed, setCollapsed] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("sidebar-collapsed");
+    if (saved === "true") setCollapsed(true);
+    setMounted(true);
+  }, []);
+
+  const toggleCollapsed = () => {
+    setCollapsed((prev) => {
+      const next = !prev;
+      localStorage.setItem("sidebar-collapsed", String(next));
+
+      if (next) {
+        document.documentElement.setAttribute("data-sidebar-collapsed", "true");
+      } else {
+        document.documentElement.removeAttribute("data-sidebar-collapsed");
+      }
+
+      return next;
+    });
+  };
+
   return (
-    <aside
-      className={`app-sidebar ${collapsed ? "app-sidebar--collapsed" : ""}`}
-    >
+    <aside suppressHydrationWarning className="app-sidebar">
       {/* Logo + toggle */}
       <div className="app-sidebar__header">
-        {!collapsed && (
+        {mounted && !collapsed && (
           <div className="app-sidebar__logo">
             <span className="app-sidebar__logo-icon">🏋️</span>
             <span className="app-sidebar__logo-text">Training</span>
@@ -89,7 +109,7 @@ export function Sidebar() {
         )}
         <button
           className="app-sidebar__toggle"
-          onClick={() => setCollapsed((prev) => !prev)}
+          onClick={toggleCollapsed}
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           <svg
@@ -101,7 +121,7 @@ export function Sidebar() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={`app-sidebar__toggle-icon ${collapsed ? "app-sidebar__toggle-icon--flipped" : ""}`}
+            className={`app-sidebar__toggle-icon ${mounted && collapsed ? "app-sidebar__toggle-icon--flipped" : ""}`}
           >
             <path d="M15 18l-6-6 6-6" />
           </svg>
@@ -121,7 +141,7 @@ export function Sidebar() {
               key={item.href}
               href={item.href}
               className={`app-sidebar__link ${isActive ? "app-sidebar__link--active" : ""}`}
-              title={collapsed ? item.label : undefined}
+              title={mounted && collapsed ? item.label : undefined}
             >
               <span className="app-sidebar__link-icon">{item.icon}</span>
               {!collapsed && (
@@ -140,9 +160,30 @@ export function Sidebar() {
           onClick={() =>
             dispatch(setTheme(theme === "dark" ? "light" : "dark"))
           }
-          title={collapsed ? "Toggle theme" : undefined}
+          title={mounted && collapsed ? "Toggle theme" : undefined}
         >
-          {theme === "dark" ? (
+          {!mounted ? (
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+          ) : theme === "dark" ? (
             <svg
               width="20"
               height="20"
@@ -177,7 +218,7 @@ export function Sidebar() {
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           )}
-          {!collapsed && (
+          {mounted && !collapsed && (
             <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>
           )}
         </button>
@@ -186,7 +227,7 @@ export function Sidebar() {
           className="app-sidebar__logout"
           onClick={() => logout()}
           disabled={isPending}
-          title={collapsed ? "Log out" : undefined}
+          title={mounted && collapsed ? "Log out" : undefined}
         >
           <svg
             width="20"
@@ -202,7 +243,7 @@ export function Sidebar() {
             <polyline points="16 17 21 12 16 7" />
             <line x1="21" y1="12" x2="9" y2="12" />
           </svg>
-          {!collapsed && (
+          {mounted && !collapsed && (
             <span>{isPending ? "Logging out..." : "Log out"}</span>
           )}
         </button>

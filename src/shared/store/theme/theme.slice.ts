@@ -2,17 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type Theme = "light" | "dark" | "system";
 
+const getInitialTheme = (): Theme => {
+  if (typeof window === "undefined") return "system";
+  return (localStorage.getItem("theme") as Theme) ?? "system";
+};
+
 interface ThemeState {
   theme: Theme;
 }
 
 const initialState: ThemeState = {
-  theme: "system",
-};
-
-const getInitialTheme = (): Theme => {
-  if (typeof window === "undefined") return "system";
-  return (localStorage.getItem("theme") as Theme) ?? "system";
+  theme: getInitialTheme(), 
 };
 
 const themeSlice = createSlice({

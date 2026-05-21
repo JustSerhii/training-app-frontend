@@ -1,22 +1,11 @@
 "use client";
 
 import { useEffect, PropsWithChildren } from "react";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { setTheme } from "../store/theme/theme.slice";
+import { useAppSelector } from "../store/hooks";
 import { selectTheme } from "../store/theme/theme.selectors";
 
 export function ThemeProvider({ children }: PropsWithChildren) {
-  const dispatch = useAppDispatch();
   const theme = useAppSelector(selectTheme);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("theme") as
-      | "light"
-      | "dark"
-      | "system"
-      | null;
-    if (saved) dispatch(setTheme(saved));
-  }, [dispatch]);
 
   useEffect(() => {
     const root = document.documentElement;

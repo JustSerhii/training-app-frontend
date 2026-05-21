@@ -34,6 +34,17 @@ const themeInitScript = `
   })();
 `;
 
+const sidebarScript = `
+  (function() {
+    try {
+      var collapsed = localStorage.getItem('sidebar-collapsed');
+      if (collapsed === 'true') {
+        document.documentElement.setAttribute('data-sidebar-collapsed', 'true');
+      }
+    } catch(e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: {
@@ -42,13 +53,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning 
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <head>
+      <body className="antialiased" suppressHydrationWarning>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-      </head>
-      <body className="antialiased">
+        <script dangerouslySetInnerHTML={{ __html: sidebarScript }} />
         <MainProvider>{children}</MainProvider>
       </body>
     </html>
