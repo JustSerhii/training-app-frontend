@@ -47,6 +47,7 @@ export interface Exercise {
 export interface WorkoutSet {
   id: string;
   weight: number | null;
+  plateWeight?: number | null;
   order: number;
   reps: number;
   type: string;

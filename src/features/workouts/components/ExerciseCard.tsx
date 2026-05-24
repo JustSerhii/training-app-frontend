@@ -88,7 +88,6 @@ export function ExerciseCard({
         cursor: "grab",
       }}
     >
-      {/* Header */}
       <div className="exercise-card__header">
         <div className="exercise-card__header-left">
           <span className="exercise-card__index">{index + 1}</span>
@@ -120,7 +119,6 @@ export function ExerciseCard({
         </button>
       </div>
 
-      {/* Sets */}
       <div className="exercise-card__sets">
         {sets.length === 0 ? (
           <p className="exercise-card__no-sets">No sets yet</p>
@@ -142,7 +140,11 @@ export function ExerciseCard({
                     {i + 1}
                   </td>
                   <td className="sets-table__td">
-                    {set.weight != null ? `${set.weight} kg` : "—"}
+                    {set.plateWeight != null
+                      ? `${set.plateWeight} kg`
+                      : set.weight != null
+                        ? `${set.weight} kg`
+                        : "—"}
                   </td>
                   <td className="sets-table__td">{set.reps}</td>
                   <td className="sets-table__td">
@@ -163,7 +165,6 @@ export function ExerciseCard({
           </table>
         )}
 
-        {/* Add set */}
         <div className="sets-add">
           <input
             className="sets-add__input"
