@@ -6,4 +6,9 @@ export const profileApi = {
 
   getAllRecords: (): Promise<ExerciseRecord[]> =>
     apiClient.get("/exercise-records"),
+
+  updateProfile: (payload: {
+    name?: string;
+    bodyWeight?: number;
+  }): Promise<Profile> => apiClient.patch(`/users/me`, payload),
 };

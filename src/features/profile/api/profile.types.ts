@@ -2,10 +2,12 @@ export type Profile = {
   name: string;
   email: string;
   createdAt: Date;
+  bodyWeight: number;
 };
 
 export type ProfileUpdate = {
   name: string;
+  bodyWeight: number;
 };
 
 export type ExerciseRecord = {
