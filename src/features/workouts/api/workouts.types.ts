@@ -26,6 +26,7 @@ export interface CreateWorkoutPayload {
 export interface UpdateWorkoutPayload {
   title?: string;
   description?: string;
+  duration?: number;
 }
 
 export interface PaginationParams {
@@ -66,6 +67,7 @@ export interface FullWorkout {
   title: string;
   description?: string | null;
   createdAt: string;
+  duration: number;
   workoutExercises: WorkoutExercise[];
 }
 

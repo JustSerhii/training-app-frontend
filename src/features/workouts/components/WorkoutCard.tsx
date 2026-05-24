@@ -6,14 +6,12 @@ import { Workout } from "../api/workouts.types";
 interface WorkoutCardProps {
   workout: Workout;
   isDeleting: boolean;
-  onEdit: () => void; 
   onDelete: () => void;
 }
 
 export function WorkoutCard({
   workout,
   isDeleting,
-  onEdit,
   onDelete,
 }: WorkoutCardProps) {
   const router = useRouter();
@@ -34,13 +32,6 @@ export function WorkoutCard({
         )}
       </div>
       <div className="workout-card__footer">
-        <button
-          className="workout-card__btn"
-          onClick={onEdit} 
-        >
-          Edit
-        </button>
-
         <button
           className="workout-card__btn"
           onClick={() => router.push(`/workouts/${workout.id}`)}
