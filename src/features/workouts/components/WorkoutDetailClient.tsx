@@ -37,7 +37,7 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
         }
       }
     }
-  }, [workout?.id]);
+  }, [workout?.id, workout?.duration]);
 
   const handleFinishWorkout = (durationSeconds: number) => {
     if (!workout) return;

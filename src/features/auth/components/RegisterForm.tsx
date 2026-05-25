@@ -27,6 +27,7 @@ export function RegisterForm() {
   });
 
   const onSubmit = (values: TypeRegisterSchema) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { passwordRepeat: _, ...payload } = values;
     register(payload);
   };

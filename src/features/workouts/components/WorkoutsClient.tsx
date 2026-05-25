@@ -30,6 +30,7 @@ export function WorkoutsClient() {
       params.delete("search");
     }
     router.push(`/workouts?${params.toString()}`, { scroll: false });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch]);
 
   const { data, isLoading } = useGetWorkouts({

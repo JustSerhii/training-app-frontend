@@ -9,11 +9,13 @@ export function useWorkoutTimer() {
   useEffect(() => {
     if (!isActive || startedAt === null) return;
 
-    setElapsed(Math.floor((Date.now() - startedAt) / 1000));
-
-    const interval = setInterval(() => {
+    const updateElapsed = () => {
       setElapsed(Math.floor((Date.now() - startedAt) / 1000));
-    }, 1000);
+    };
+
+    updateElapsed();
+
+    const interval = setInterval(updateElapsed, 1000);
 
     return () => clearInterval(interval);
   }, [isActive, startedAt]);
