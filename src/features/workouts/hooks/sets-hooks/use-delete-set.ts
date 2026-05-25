@@ -17,6 +17,10 @@ export function useDeleteSet(workoutId: string, workoutExerciseId: string) {
       queryClient.invalidateQueries({
         queryKey: workoutExercisesKeys.full(workoutId),
       });
+      queryClient.invalidateQueries({
+        queryKey: ["stats", "volume-history"],
+        exact: false,
+      });
       toast.success("Set deleted");
     },
     onError: (error: Error) => toast.error(error.message),

@@ -1,15 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { useGetExercises } from "@/features/workouts/hooks/use-get-exercises";
 import { useGetExerciseVolumeHistory } from "../hooks/use-get-exercise-volume-history";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function StatsClient() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const selectedExerciseId = searchParams.get("exercise");
+
   const { data: exercises, isLoading: exercisesLoading } = useGetExercises();
-  const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(
-    null,
-  );
   const { data: history, isLoading: historyLoading } =
     useGetExerciseVolumeHistory(selectedExerciseId);
 
@@ -18,6 +19,12 @@ export function StatsClient() {
     history && history.length > 0
       ? Math.max(...history.map((h) => h.volume))
       : 0;
+
+  const handleSelectExercise = (id: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("exercise", id);
+    router.push(`?${params.toString()}`);
+  };
 
   const formatDate = (dateStr: string) =>
     new Date(dateStr).toLocaleDateString("en-US", {
@@ -53,7 +60,7 @@ export function StatsClient() {
               {exercises?.map((exercise) => (
                 <button
                   key={exercise.id}
-                  onClick={() => setSelectedExerciseId(exercise.id)}
+                  onClick={() => handleSelectExercise(exercise.id)}
                   className={`w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                     selectedExerciseId === exercise.id
                       ? "bg-primary text-primary-foreground"

@@ -4,8 +4,14 @@ import { statsApi } from "../api/stats.api";
 export function useGetExerciseVolumeHistory(exerciseId: string | null) {
   return useQuery({
     queryKey: ["stats", "volume-history", exerciseId],
-    queryFn: () => statsApi.getExerciseVolumeHistory(exerciseId!, 20),
+    queryFn: async () => {
+      return statsApi.getExerciseVolumeHistory(exerciseId!, 20);
+    },
     enabled: !!exerciseId,
-    refetchOnWindowFocus: false,
+
+    staleTime: 0,
+    gcTime: 0,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true,
   });
 }

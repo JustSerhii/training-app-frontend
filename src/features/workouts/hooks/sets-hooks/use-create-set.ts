@@ -18,6 +18,10 @@ export function useCreateSet(workoutId: string, workoutExerciseId: string) {
       queryClient.invalidateQueries({
         queryKey: workoutExercisesKeys.full(workoutId),
       });
+      queryClient.invalidateQueries({
+        queryKey: ["stats", "volume-history"],
+        exact: false,
+      });
       toast.success("Set added");
     },
     onError: (error: Error) => {
