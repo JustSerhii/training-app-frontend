@@ -7,7 +7,7 @@ export function useWorkoutTimer() {
   const [elapsed, setElapsed] = useState(0);
 
   useEffect(() => {
-    if (!isActive || !startedAt) return;
+    if (!isActive || startedAt === null) return;
 
     setElapsed(Math.floor((Date.now() - startedAt) / 1000));
 

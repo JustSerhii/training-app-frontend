@@ -140,11 +140,7 @@ export function ExerciseCard({
                     {i + 1}
                   </td>
                   <td className="sets-table__td">
-                    {set.plateWeight != null
-                      ? `${set.plateWeight} kg`
-                      : set.weight != null
-                        ? `${set.weight} kg`
-                        : "—"}
+                    {set.plateWeight != null ? `${set.plateWeight} kg` : "—"}
                   </td>
                   <td className="sets-table__td">{set.reps}</td>
                   <td className="sets-table__td">

@@ -3,13 +3,13 @@ import { persist } from "zustand/middleware";
 
 interface WorkoutTimerState {
   workoutId: string | null;
-  startedAt: number | null; 
+  startedAt: number | null;
   isActive: boolean;
 
   start: (workoutId: string) => void;
-  finish: () => number; 
+  finish: () => number;
   reset: () => void;
-  getElapsed: () => number; 
+  getElapsed: () => number;
 }
 
 export const useWorkoutTimerStore = create<WorkoutTimerState>()(
@@ -28,9 +28,8 @@ export const useWorkoutTimerStore = create<WorkoutTimerState>()(
 
       finish: () => {
         const { startedAt } = get();
-        const elapsed = startedAt
-          ? Math.floor((Date.now() - startedAt) / 1000)
-          : 0;
+        const elapsed =
+          startedAt !== null ? Math.floor((Date.now() - startedAt) / 1000) : 0;
         set({ workoutId: null, startedAt: null, isActive: false });
         return elapsed;
       },
@@ -39,12 +38,12 @@ export const useWorkoutTimerStore = create<WorkoutTimerState>()(
 
       getElapsed: () => {
         const { startedAt } = get();
-        if (!startedAt) return 0;
+        if (startedAt === null) return 0;
         return Math.floor((Date.now() - startedAt) / 1000);
       },
     }),
     {
-      name: "workout-timer", 
+      name: "workout-timer",
     },
   ),
 );
