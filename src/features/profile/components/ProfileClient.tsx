@@ -142,7 +142,7 @@ export function ProfileClient() {
           <h2 className="text-xl font-semibold">Personal Records</h2>
           {records && records.length > 0 && (
             <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
-              {records.length} exercises
+              {records.length} {records.length <= 1 ? "exercise" : "exercises"}
             </span>
           )}
         </div>

@@ -14,6 +14,7 @@ import { ExerciseCard } from "./ExerciseCard";
 import { useWorkoutTimerStore } from "@/shared/store/workout-timer.store";
 import { toast } from "sonner";
 import { WorkoutTimer } from "./WorkoutTimer";
+import { useExportWorkout } from "../hooks";
 
 interface WorkoutDetailClientProps {
   workoutId: string;
@@ -22,7 +23,8 @@ interface WorkoutDetailClientProps {
 export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
   const router = useRouter();
   const { data: workout, isLoading } = useGetFullWorkout(workoutId);
-  const { data: exercises = [], isLoading: exercisesLoading } = useGetExercises();
+  const { data: exercises = [], isLoading: exercisesLoading } =
+    useGetExercises();
   const updateWorkout = useUpdateWorkout();
 
   useEffect(() => {
@@ -54,7 +56,6 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
     );
   };
 
-
   const createExercise = useCreateWorkoutExercise(workoutId);
   const deleteExercise = useDeleteWorkoutExercise(workoutId);
   const reorderExercises = useReorderWorkoutExercises(workoutId);
@@ -70,6 +71,7 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
 
   const isFinished = workout?.duration != null && workout.duration > 0;
 
+  const exportWorkout = useExportWorkout();
 
   const handleAddExercise = () => {
     if (!exerciseId.trim()) return;
@@ -90,13 +92,14 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
     const reordered = [...(workout?.workoutExercises ?? [])];
     const draggedIndex = reordered.findIndex((e) => e.id === draggedId);
     const droppedIndex = reordered.findIndex((e) => e.id === droppedOnId);
-    [reordered[draggedIndex], reordered[droppedIndex]] = [reordered[droppedIndex], reordered[draggedIndex]];
+    [reordered[draggedIndex], reordered[droppedIndex]] = [
+      reordered[droppedIndex],
+      reordered[draggedIndex],
+    ];
     setDraggedId(null);
     setDragOverId(null);
     reorderExercises.mutate(reordered.map((e) => e.id));
   };
-
-  
 
   const startEditing = () => {
     if (workout) {
@@ -107,33 +110,51 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
   };
 
   const saveEdit = () => {
-    if (workout && (editTitle !== workout.title || editDesc !== workout.description)) {
-      updateWorkout.mutate({
-        workoutId: workout.id,
-        payload: { title: editTitle, description: editDesc },
-      }, {
-        onSuccess: () => setIsEditing(false)
-      });
+    if (
+      workout &&
+      (editTitle !== workout.title || editDesc !== workout.description)
+    ) {
+      updateWorkout.mutate(
+        {
+          workoutId: workout.id,
+          payload: { title: editTitle, description: editDesc },
+        },
+        {
+          onSuccess: () => setIsEditing(false),
+        },
+      );
     } else {
       setIsEditing(false);
     }
   };
 
   if (isLoading) {
-    return <div className="p-8 max-w-4xl mx-auto"><div className="h-12 w-64 bg-muted rounded animate-pulse mb-4" /></div>;
+    return (
+      <div className="p-8 max-w-4xl mx-auto">
+        <div className="h-12 w-64 bg-muted rounded animate-pulse mb-4" />
+      </div>
+    );
   }
 
   if (!workout) {
     return (
       <div className="p-8 max-w-4xl mx-auto text-center">
         <p className="text-xl font-bold mb-4">Workout not found</p>
-        <button onClick={() => router.push("/workouts")} className="text-primary hover:underline">← Back to workouts</button>
+        <button
+          onClick={() => router.push("/workouts")}
+          className="text-primary hover:underline"
+        >
+          ← Back to workouts
+        </button>
       </div>
     );
   }
 
-  
-  const date = new Date(workout.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const date = new Date(workout.createdAt).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
   return (
     <div className="p-4 md:p-8 max-w-4xl mx-auto">
@@ -225,13 +246,46 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
               )}
             </div>
 
+            <button
+              onClick={() => exportWorkout.mutate(workout.id)}
+              disabled={exportWorkout.isPending || !workout}
+              className="px-4 py-2 bg-muted/50 hover:bg-muted text-foreground rounded-xl font-semibold text-sm transition-colors whitespace-nowrap flex items-center gap-1.5 disabled:opacity-50"
+              title="Export workout as PDF"
+            >
+              {exportWorkout.isPending ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    />
+                  </svg>
+                  Export
+                </>
+              )}
+            </button>
             <div className="flex items-center justify-between">
               <WorkoutTimer
                 savedDuration={isFinished ? workout.duration : undefined}
               />
 
               <div className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-bold border border-primary/20">
-                {workout.workoutExercises.length} exercises
+                {workout.workoutExercises.length}{" "}
+                {workout.workoutExercises.length === 1
+                  ? "exercise"
+                  : "exercises"}
               </div>
             </div>
 
