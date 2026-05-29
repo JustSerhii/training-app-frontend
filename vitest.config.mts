@@ -13,6 +13,18 @@ export default defineConfig({
     exclude: ["**/node_modules/**", "**/e2e/**", "**/.next/**"],
     globals: true,
 
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+
+      thresholds: {
+        lines: 90,
+        functions: 90,
+        branches: 90,
+        statements: 90,
+      },
+    },
+
     pool: "threads",
 
     testTimeout: 10000,
