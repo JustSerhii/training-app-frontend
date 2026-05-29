@@ -44,6 +44,7 @@ export function LoginForm() {
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel className="text-sm font-medium">Email</FieldLabel>
                 <Input
+                  id="email"
                   {...field}
                   placeholder="you@example.com"
                   aria-invalid={fieldState.invalid}
@@ -65,6 +66,7 @@ export function LoginForm() {
                   Password
                 </FieldLabel>
                 <Input
+                  id="password"
                   {...field}
                   type="password"
                   placeholder="••••••••"

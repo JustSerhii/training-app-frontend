@@ -225,6 +225,7 @@ export function Sidebar() {
         </button>
 
         <button
+          aria-label="Log out"
           className="app-sidebar__logout"
           onClick={() => logout()}
           disabled={isPending}

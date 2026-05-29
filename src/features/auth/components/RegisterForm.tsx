@@ -48,6 +48,7 @@ export function RegisterForm() {
               <Field data-invalid={fieldState.invalid} className="gap-1.5">
                 <FieldLabel className="text-sm font-medium">Name</FieldLabel>
                 <Input
+                  id="name"
                   {...field}
                   placeholder="Your name"
                   aria-invalid={fieldState.invalid}
@@ -67,6 +68,7 @@ export function RegisterForm() {
               <Field data-invalid={fieldState.invalid} className="gap-1.5">
                 <FieldLabel className="text-sm font-medium">Email</FieldLabel>
                 <Input
+                  id="email"
                   {...field}
                   placeholder="you@example.com"
                   aria-invalid={fieldState.invalid}
@@ -89,6 +91,7 @@ export function RegisterForm() {
                     Password
                   </FieldLabel>
                   <Input
+                    id="password"
                     {...field}
                     type="password"
                     placeholder="••••••••"
@@ -111,6 +114,7 @@ export function RegisterForm() {
                     Confirm
                   </FieldLabel>
                   <Input
+                    id="passwordRepeat"
                     {...field}
                     type="password"
                     placeholder="••••••••"
