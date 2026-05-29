@@ -53,3 +53,5 @@ e2e/tests/.auth/
 playwright-report/
 test-results/
 e2e/.auth/
+
+.github/workflows/playwright.yml
