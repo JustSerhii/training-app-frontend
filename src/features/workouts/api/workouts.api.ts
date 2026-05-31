@@ -5,6 +5,7 @@ import {
   GetWorkoutsParams,
   UpdateWorkoutPayload,
   Workout,
+  WorkoutIdsPayload,
 } from "./workouts.types";
 
 export const workoutsApi = {
@@ -50,5 +51,34 @@ export const workoutsApi = {
     if (!res.ok) throw new Error("Export failed");
 
     return res.blob();
+  },
+
+  exportSelectedWorkouts: async (
+    payload: WorkoutIdsPayload,
+  ): Promise<{ blob: Blob; filename: string }> => {
+    const token = getAccessToken();
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/workouts/export/bulk`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token ?? ""}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+        credentials: "include",
+      },
+    );
+
+    if (!res.ok) throw new Error("Bulk export failed");
+
+    const disposition = res.headers.get("content-disposition");
+    let filename = `workouts-export-${Date.now()}.pdf`;
+    if (disposition) {
+      const match = disposition.match(/filename\*?=(?:UTF-8'')?"?([^";]+)"?/);
+      if (match && match[1]) filename = decodeURIComponent(match[1]);
+    }
+
+    return { blob: await res.blob(), filename };
   },
 };

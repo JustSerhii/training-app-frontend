@@ -7,12 +7,16 @@ interface WorkoutCardProps {
   workout: Workout;
   isDeleting: boolean;
   onDelete: () => void;
+  isSelected?: boolean;
+  onSelect?: (id: string, checked: boolean) => void;
 }
 
 export function WorkoutCard({
   workout,
   isDeleting,
   onDelete,
+  isSelected = false,
+  onSelect,
 }: WorkoutCardProps) {
   const router = useRouter();
 
@@ -25,7 +29,20 @@ export function WorkoutCard({
   return (
     <article className="workout-card">
       <div className="workout-card__body">
-        <time className="workout-card__date">{date}</time>
+        {/* 🔹 Рядок з чекбоксом та датою */}
+        <div className="flex items-center gap-3 mb-2">
+          {onSelect && (
+            <input
+              type="checkbox"
+              checked={isSelected}
+              onChange={(e) => onSelect(workout.id, e.target.checked)}
+              className="h-4 w-4 cursor-pointer accent-primary rounded border-gray-300 focus:ring-primary"
+              onClick={(e) => e.stopPropagation()} // Запобігає спливанню, якщо картка стане клікабельною
+            />
+          )}
+          <time className="workout-card__date">{date}</time>
+        </div>
+
         <h3 className="workout-card__title">{workout.title}</h3>
         {workout.description && (
           <p className="workout-card__desc">{workout.description}</p>

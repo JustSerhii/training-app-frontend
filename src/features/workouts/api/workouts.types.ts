@@ -102,3 +102,7 @@ export enum SetType {
   dropset = "dropset",
   normal = "normal",
 }
+
+export interface WorkoutIdsPayload {
+  workoutIds: string[];
+}

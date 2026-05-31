@@ -61,7 +61,7 @@ export function StatsClient() {
                 <button
                   key={exercise.id}
                   onClick={() => handleSelectExercise(exercise.id)}
-                  className={`w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  className={`w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium ${
                     selectedExerciseId === exercise.id
                       ? "bg-primary text-primary-foreground"
                       : "hover:bg-muted text-foreground"
