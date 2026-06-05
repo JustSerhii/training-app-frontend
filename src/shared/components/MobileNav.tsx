@@ -77,9 +77,9 @@ export function MobileNav() {
   const theme = useAppSelector(selectTheme);
   const [mounted, setMounted] = useState(false);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
 
-  // Не показуємо на /auth сторінках
   if (pathname.startsWith("/auth")) return null;
 
   return (

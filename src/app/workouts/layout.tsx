@@ -1,4 +1,5 @@
-import { Sidebar } from "@/shared/components/Sidebar";
+import { DesktopSidebar } from "@/shared/components/DesktopSidebar";
+import { MobileNav } from "@/shared/components/MobileNav";
 
 export default function WorkoutsLayout({
   children,
@@ -7,8 +8,9 @@ export default function WorkoutsLayout({
 }) {
   return (
     <div className="app-layout">
-      <Sidebar />
+      <DesktopSidebar />
       <main className="app-main">{children}</main>
+      <MobileNav />
     </div>
   );
 }

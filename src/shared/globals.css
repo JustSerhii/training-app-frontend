@@ -137,21 +137,23 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-normal;
   }
 }
 
 .workouts-page {
-  @apply min-h-screen px-6 py-8;
+  @apply min-h-screen px-4 py-6 md:px-6 md:py-8;
   background: linear-gradient(135deg, var(--background) 0%, var(--background) 100%);
 }
 
 .workouts-page__inner {
-  @apply max-w-6xl mx-auto flex flex-col gap-8;
+  @apply max-w-6xl mx-auto flex flex-col gap-6 md:gap-8;
 }
 
 /* Header */
@@ -160,7 +162,7 @@
 }
 
 .workouts-header__title {
-  @apply text-4xl md:text-5xl font-bold tracking-tight text-foreground;
+  @apply text-3xl md:text-5xl font-bold tracking-tight text-foreground;
   background: linear-gradient(135deg, var(--foreground) 0%, var(--foreground) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -168,16 +170,16 @@
 }
 
 .workouts-header__sub {
-  @apply mt-2 text-base text-muted-foreground font-medium;
+  @apply mt-2 text-sm md:text-base text-muted-foreground font-medium;
 }
 
 .workouts-header__count {
-  @apply px-3 py-1 rounded-full bg-muted text-sm font-semibold text-muted-foreground border border-border/50;
+  @apply px-3 py-1 rounded-full bg-muted text-xs md:text-sm font-semibold text-muted-foreground border border-border/50;
 }
 
 /* Layout */
 .workouts-layout {
-  @apply flex flex-col gap-8 lg:flex-row lg:items-start;
+  @apply flex flex-col gap-6 md:gap-8 lg:flex-row lg:items-start;
 }
 
 /* Sidebar */
@@ -186,11 +188,11 @@
 }
 
 .workouts-sidebar__sticky {
-  @apply sticky top-6 rounded-3xl border border-border bg-card p-7 flex flex-col gap-5 shadow-lg backdrop-blur-sm;
+  @apply sticky top-6 rounded-2xl md:rounded-3xl border border-border bg-card p-5 md:p-7 flex flex-col gap-4 md:gap-5 shadow-lg backdrop-blur-sm;
 }
 
 .workouts-sidebar__label {
-  @apply text-sm font-bold text-foreground uppercase tracking-wider;
+  @apply text-xs md:text-sm font-bold text-foreground uppercase tracking-wider;
 }
 
 /* Main */
@@ -200,33 +202,33 @@
 
 /* Grid */
 .workouts-grid {
-  @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6;
+  @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6;
 }
 
 /* Skeleton */
 .workouts-skeleton {
-  @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6;
+  @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6;
 }
 
 .workouts-skeleton__card {
-  @apply h-48 rounded-3xl bg-gradient-to-br from-muted to-muted/50 animate-pulse;
+  @apply h-48 rounded-2xl md:rounded-3xl bg-gradient-to-br from-muted to-muted/50 animate-pulse;
 }
 
 /* Empty */
 .workouts-empty {
-  @apply flex flex-col items-center justify-center gap-3 py-32 text-center;
+  @apply flex flex-col items-center justify-center gap-3 py-20 md:py-32 text-center;
 }
 
 .workouts-empty__icon {
-  @apply text-6xl transform hover:scale-110 transition-transform;
+  @apply text-5xl md:text-6xl transform hover:scale-110 transition-transform;
 }
 
 .workouts-empty__title {
-  @apply text-2xl font-bold text-foreground;
+  @apply text-xl md:text-2xl font-bold text-foreground;
 }
 
 .workouts-empty__sub {
-  @apply text-base text-muted-foreground;
+  @apply text-sm md:text-base text-muted-foreground;
 }
 
 /* Pagination */
@@ -253,11 +255,11 @@
 /* ─── Workout Card ───────────────────────────────────────────── */
 
 .workout-card {
-  @apply flex flex-col justify-between rounded-3xl border border-border bg-card p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden;
+  @apply flex flex-col justify-between rounded-2xl md:rounded-3xl border border-border bg-card p-5 md:p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden;
 }
 
 .workout-card__body {
-  @apply flex flex-col gap-2 mb-6;
+  @apply flex flex-col gap-2 mb-4 md:mb-6;
 }
 
 .workout-card__date {
@@ -265,7 +267,7 @@
 }
 
 .workout-card__title {
-  @apply text-xl font-bold text-foreground leading-snug;
+  @apply text-lg md:text-xl font-bold text-foreground leading-snug;
 }
 
 .workout-card__desc {
@@ -273,7 +275,7 @@
 }
 
 .workout-card__footer {
-  @apply flex gap-2 pt-5 border-t border-border/30;
+  @apply flex gap-2 pt-4 md:pt-5 border-t border-border/30;
 }
 
 .workout-card__btn {
@@ -287,7 +289,7 @@
 /* ─── Workout Form ───────────────────────────────────────────── */
 
 .workout-form {
-  @apply flex flex-col gap-5;
+  @apply flex flex-col gap-4 md:gap-5;
 }
 
 .workout-form__field {
@@ -295,7 +297,7 @@
 }
 
 .workout-form__label {
-  @apply text-sm font-bold text-foreground uppercase tracking-wider;
+  @apply text-xs md:text-sm font-bold text-foreground uppercase tracking-wider;
 }
 
 .workout-form__input,
@@ -324,11 +326,11 @@
 }
 
 .workout-detail-page {
-  @apply min-h-screen px-6 py-8;
+  @apply min-h-screen px-4 py-6 md:px-6 md:py-8;
 }
 
 .workout-detail__inner {
-  @apply max-w-4xl mx-auto flex flex-col gap-8;
+  @apply max-w-4xl mx-auto flex flex-col gap-6 md:gap-8;
 }
 
 /* Back */
@@ -342,7 +344,7 @@
 }
 
 .workout-detail-header__title {
-  @apply text-4xl md:text-5xl font-bold tracking-tight text-foreground;
+  @apply text-3xl md:text-5xl font-bold tracking-tight text-foreground;
   background: linear-gradient(135deg, var(--foreground) 0%, var(--foreground) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -354,7 +356,7 @@
 }
 
 .workout-detail-header__desc {
-  @apply text-base text-muted-foreground mt-3 max-w-2xl;
+  @apply text-sm md:text-base text-muted-foreground mt-3 max-w-2xl;
 }
 
 .workout-detail-header__badge {
@@ -363,15 +365,15 @@
 
 /* Add exercise */
 .workout-detail-add {
-  @apply rounded-3xl border border-border bg-card p-7 flex flex-col gap-4 shadow-lg;
+  @apply rounded-2xl md:rounded-3xl border border-border bg-card p-5 md:p-7 flex flex-col gap-4 shadow-lg;
 }
 
 .workout-detail-add__label {
-  @apply text-sm font-bold text-foreground uppercase tracking-wider;
+  @apply text-xs md:text-sm font-bold text-foreground uppercase tracking-wider;
 }
 
 .workout-detail-add__row {
-  @apply flex gap-3;
+  @apply flex flex-col gap-3 sm:flex-row;
 }
 
 .workout-detail-add__input {
@@ -384,19 +386,19 @@
 
 /* Empty */
 .workout-detail-empty {
-  @apply flex flex-col items-center justify-center gap-3 py-32 text-center;
+  @apply flex flex-col items-center justify-center gap-3 py-20 md:py-32 text-center;
 }
 
 .workout-detail-empty__icon {
-  @apply text-6xl transform hover:scale-110 transition-transform;
+  @apply text-5xl md:text-6xl transform hover:scale-110 transition-transform;
 }
 
 .workout-detail-empty__title {
-  @apply text-2xl font-bold text-foreground;
+  @apply text-xl md:text-2xl font-bold text-foreground;
 }
 
 .workout-detail-empty__sub {
-  @apply text-base text-muted-foreground;
+  @apply text-sm md:text-base text-muted-foreground;
 }
 
 /* Skeleton */
@@ -413,12 +415,12 @@
 }
 
 .workout-detail-skeleton__card {
-  @apply h-56 rounded-3xl bg-gradient-to-br from-muted to-muted/50 animate-pulse;
+  @apply h-56 rounded-2xl md:rounded-3xl bg-gradient-to-br from-muted to-muted/50 animate-pulse;
 }
 
 /* Exercises list */
 .workout-detail-exercises {
-  @apply flex flex-col gap-5;
+  @apply flex flex-col gap-4 md:gap-5;
 }
 
 /* ─── Exercise Card ──────────────────────────────────────────── */
@@ -502,7 +504,7 @@
 }
 
 .modal-content {
-  @apply relative w-full max-w-lg rounded-3xl border border-border bg-card p-6 shadow-2xl;
+  @apply relative w-full max-w-lg rounded-2xl md:rounded-3xl border border-border bg-card p-5 md:p-6 shadow-2xl;
   animation: modalIn 0.2s ease;
 }
 
@@ -525,11 +527,11 @@
 /* ─── Sets Add ─────────────────────────────────────────────── */
 
 .sets-add {
-  @apply flex gap-2 mt-3 pt-3 border-t border-border/50;
+  @apply flex flex-col gap-2 sm:flex-row mt-3 pt-3 border-t border-border/50;
 }
 
 .sets-add__input {
-  @apply w-28 rounded-lg border border-input bg-background px-3 py-1.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition;
+  @apply w-full sm:w-28 rounded-lg border border-input bg-background px-3 py-1.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition;
 }
 
 .sets-add__btn {
@@ -546,14 +548,16 @@
   @apply flex min-h-screen;
 }
 
+/* Added bottom padding on mobile to prevent content from hiding behind MobileNav */
 .app-main {
-  @apply flex-1 overflow-auto;
+  @apply flex-1 overflow-auto pb-20 md:pb-0;
 }
 
 /* ─── Sidebar ────────────────────────────────────────────────── */
 
+/* Hidden on mobile, visible on md and above */
 .app-sidebar {
-  @apply flex flex-col shrink-0 min-h-screen border-r border-sidebar-border bg-sidebar px-3 py-5 sticky top-0 h-screen;
+  @apply hidden md:flex flex-col shrink-0 min-h-screen border-r border-sidebar-border bg-sidebar px-3 py-5 sticky top-0 h-screen;
   width: 15rem;
   transition: width 300ms ease-in-out;
 }
@@ -817,8 +821,9 @@ html[data-sidebar-collapsed="true"] .app-sidebar__logout {
 
 /* ─── Mobile Navigation ─────────────────────────────────────── */
 
+/* Added md:hidden to ensure it's only visible on mobile */
 .mobile-nav {
-  @apply fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-card/95 backdrop-blur-md;
+  @apply fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-card/95 backdrop-blur-md md:hidden;
   padding-bottom: env(safe-area-inset-bottom);
 }
 
@@ -863,7 +868,6 @@ html[data-sidebar-collapsed="true"] .app-sidebar__logout {
 
   .workout-card {
     @apply p-5;
-    /* 6 → 5 */
   }
 
   .workout-card__btn {
@@ -931,4 +935,28 @@ html[data-sidebar-collapsed="true"] .app-sidebar__logout {
   .app-main {
     padding-bottom: calc(5rem + env(safe-area-inset-bottom));
   }
+}
+
+/* ─── App Layout ─────────────────────────────────────────────── */
+
+
+.app-layout {
+  @apply flex flex-col min-h-screen md:flex-row md:h-screen md:overflow-hidden;
+}
+
+
+.app-main {
+  @apply flex-1 w-full pb-24 md:pb-0 md:overflow-auto;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────── */
+
+.app-sidebar {
+  @apply hidden md:flex flex-col shrink-0 border-r border-sidebar-border bg-sidebar px-3 py-5 sticky top-0 h-screen;
+  width: 15rem;
+  transition: width 300ms ease-in-out;
+}
+
+html[data-sidebar-collapsed="true"] .app-sidebar {
+  width: 4rem;
 }

@@ -62,7 +62,6 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: sidebarScript }} />
         <MainProvider>
           {children}
-          <MobileNav />
         </MainProvider>
       </body>
     </html>

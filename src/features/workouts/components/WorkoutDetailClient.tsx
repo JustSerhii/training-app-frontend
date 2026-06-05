@@ -130,7 +130,7 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
 
   if (isLoading) {
     return (
-      <div className="p-8 max-w-4xl mx-auto">
+      <div className="p-4 md:p-8 max-w-4xl mx-auto">
         <div className="h-12 w-64 bg-muted rounded animate-pulse mb-4" />
       </div>
     );
@@ -138,7 +138,7 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
 
   if (!workout) {
     return (
-      <div className="p-8 max-w-4xl mx-auto text-center">
+      <div className="p-4 md:p-8 max-w-4xl mx-auto text-center">
         <p className="text-xl font-bold mb-4">Workout not found</p>
         <button
           onClick={() => router.push("/workouts")}
@@ -157,7 +157,7 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
   });
 
   return (
-    <div className="p-4 md:p-8 max-w-4xl mx-auto">
+    <div className="p-4 sm:p-6 md:p-8 max-w-4xl mx-auto">
       <button
         onClick={() => router.push("/workouts")}
         className="text-sm text-muted-foreground hover:text-foreground mb-6 flex items-center gap-1"
@@ -200,7 +200,8 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
           </div>
         ) : (
           <div className="flex flex-col gap-4">
-            <div className="flex items-start justify-between gap-4">
+            {/* Changed to flex-col on mobile so buttons don't get squished */}
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
               <div
                 className="cursor-pointer group flex-1"
                 onClick={startEditing}
@@ -220,14 +221,14 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
                     handleFinishWorkout(elapsed);
                   }}
                   disabled={updateWorkout.isPending}
-                  className="px-4 py-2 bg-destructive/10 text-destructive hover:bg-destructive/20 rounded-xl font-semibold text-sm transition-colors whitespace-nowrap"
+                  className="px-4 py-2 bg-destructive/10 text-destructive hover:bg-destructive/20 rounded-xl font-semibold text-sm transition-colors whitespace-nowrap w-full sm:w-auto min-h-[44px] flex items-center justify-center"
                 >
                   {updateWorkout.isPending ? "Finishing..." : "Finish Workout"}
                 </button>
               )}
 
               {isFinished && (
-                <span className="px-4 py-2 bg-primary/10 text-primary rounded-xl font-semibold text-sm border border-primary/20 flex items-center gap-2">
+                <span className="px-4 py-2 bg-primary/10 text-primary rounded-xl font-semibold text-sm border border-primary/20 flex items-center gap-2 w-full sm:w-auto justify-center min-h-[44px]">
                   <svg
                     className="w-4 h-4"
                     fill="none"
@@ -249,7 +250,7 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
             <button
               onClick={() => exportWorkout.mutate(workout.id)}
               disabled={exportWorkout.isPending || !workout}
-              className="px-4 py-2 bg-muted/50 hover:bg-muted text-foreground rounded-xl font-semibold text-sm transition-colors whitespace-nowrap flex items-center gap-1.5 disabled:opacity-50"
+              className="px-4 py-2 bg-muted/50 hover:bg-muted text-foreground rounded-xl font-semibold text-sm transition-colors whitespace-nowrap flex items-center gap-1.5 disabled:opacity-50 w-full sm:w-auto justify-center min-h-[44px]"
               title="Export workout as PDF"
             >
               {exportWorkout.isPending ? (
@@ -276,7 +277,9 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
                 </>
               )}
             </button>
-            <div className="flex items-center justify-between">
+
+            {/* Added flex-col on mobile for timer and count */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <WorkoutTimer
                 savedDuration={isFinished ? workout.duration : undefined}
               />
@@ -305,12 +308,14 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
           </div>
         )}
       </div>
+
       {/* Add exercise */}
       <div className="rounded-xl border border-border bg-card p-4 mb-8 shadow-sm">
         <p className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wider">
           Add exercise
         </p>
-        <div className="flex gap-3">
+        {/* Changed to flex-col on mobile so select and button stack nicely */}
+        <div className="flex flex-col gap-3 sm:flex-row">
           <select
             className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             value={exerciseId}
@@ -329,7 +334,7 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
           <button
             onClick={handleAddExercise}
             disabled={createExercise.isPending || !exerciseId}
-            className="px-6 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 disabled:opacity-50"
+            className="px-6 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 disabled:opacity-50 sm:min-h-[44px]"
           >
             Add
           </button>
