@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../shared/globals.css";
 import { MainProvider } from "@/shared/providers";
+import { MobileNav } from "@/shared/components/MobileNav"; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,7 +60,10 @@ export default function RootLayout({
       <body className="antialiased" suppressHydrationWarning>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <script dangerouslySetInnerHTML={{ __html: sidebarScript }} />
-        <MainProvider>{children}</MainProvider>
+        <MainProvider>
+          {children}
+          <MobileNav />
+        </MainProvider>
       </body>
     </html>
   );

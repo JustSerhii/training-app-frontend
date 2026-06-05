@@ -814,3 +814,121 @@ html[data-sidebar-collapsed="true"] .app-sidebar__logout {
 .profile-empty-state__sub {
   @apply text-muted-foreground max-w-sm;
 }
+
+/* ─── Mobile Navigation ─────────────────────────────────────── */
+
+.mobile-nav {
+  @apply fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-card/95 backdrop-blur-md;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.mobile-nav__inner {
+  @apply flex items-center justify-around px-2 py-1.5 max-w-lg mx-auto;
+}
+
+.mobile-nav__item {
+  @apply flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl text-muted-foreground hover:text-foreground transition-colors min-w-[60px] active:scale-95;
+}
+
+.mobile-nav__item--active {
+  @apply text-primary;
+}
+
+.mobile-nav__item--danger {
+  @apply text-muted-foreground hover:text-destructive;
+}
+
+.mobile-nav__item--danger.mobile-nav__item--active {
+  @apply text-destructive;
+}
+
+.mobile-nav__icon {
+  @apply shrink-0;
+}
+
+.mobile-nav__label {
+  @apply text-[10px] font-medium;
+}
+
+/* ─── Mobile Adaptations ─────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .workouts-header {
+    @apply flex-col items-start gap-3;
+  }
+
+  .workouts-header__title {
+    @apply text-3xl;
+  }
+
+  .workout-card {
+    @apply p-5;
+    /* 6 → 5 */
+  }
+
+  .workout-card__btn {
+    @apply min-h-[44px];
+  }
+
+  .workout-detail-header {
+    @apply flex-col gap-4;
+  }
+
+  .workout-detail-header__title {
+    @apply text-3xl;
+  }
+
+  .exercise-card__header {
+    @apply flex-col items-start gap-2 p-4;
+  }
+
+  .exercise-card__delete {
+    @apply self-end mt-2 min-h-[44px] flex items-center;
+  }
+
+  .sets-table {
+    @apply block overflow-x-auto;
+  }
+
+  .sets-add {
+    @apply flex-col;
+  }
+
+  .sets-add__input {
+    @apply w-full;
+  }
+
+  .sets-add__btn {
+    @apply w-full min-h-[44px];
+  }
+
+  .modal-content {
+    @apply max-w-full rounded-2xl;
+  }
+
+  .workouts-pagination {
+    @apply gap-2;
+  }
+
+  .workouts-pagination__btn {
+    @apply px-4 py-2 text-xs;
+  }
+
+  .profile-record-card__content {
+    @apply flex-col;
+  }
+
+  .profile-record-card__metrics {
+    @apply w-full md:border-l-0 md:border-t md:border-border md:pt-4 md:pl-0;
+  }
+}
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-nav {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .app-main {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
+}

@@ -29,7 +29,6 @@ export function WorkoutCard({
   return (
     <article className="workout-card">
       <div className="workout-card__body">
-        {/* 🔹 Рядок з чекбоксом та датою */}
         <div className="flex items-center gap-3 mb-2">
           {onSelect && (
             <input
@@ -37,7 +36,7 @@ export function WorkoutCard({
               checked={isSelected}
               onChange={(e) => onSelect(workout.id, e.target.checked)}
               className="h-4 w-4 cursor-pointer accent-primary rounded border-gray-300 focus:ring-primary"
-              onClick={(e) => e.stopPropagation()} // Запобігає спливанню, якщо картка стане клікабельною
+              onClick={(e) => e.stopPropagation()}
             />
           )}
           <time className="workout-card__date">{date}</time>

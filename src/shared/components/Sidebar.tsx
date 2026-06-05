@@ -99,7 +99,7 @@ export function Sidebar() {
   };
 
   return (
-    <aside suppressHydrationWarning className="app-sidebar">
+    <aside suppressHydrationWarning className="app-sidebar hidden md:flex">
       {/* Logo + toggle */}
       <div className="app-sidebar__header">
         {mounted && !collapsed && (
