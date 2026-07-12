@@ -147,6 +147,8 @@
   }
 }
 
+/* ─── Workouts Page ──────────────────────────────────────────── */
+
 .workouts-page {
   @apply min-h-screen px-4 py-6 md:px-6 md:py-8;
   background: linear-gradient(135deg, var(--background) 0%, var(--background) 100%);
@@ -161,7 +163,9 @@
   @apply flex items-end justify-between;
 }
 
-.workouts-header__title {
+/* Shared gradient-text heading style, also used by .workout-detail-header__title */
+.workouts-header__title,
+.workout-detail-header__title {
   @apply text-3xl md:text-5xl font-bold tracking-tight text-foreground;
   background: linear-gradient(135deg, var(--foreground) 0%, var(--foreground) 100%);
   -webkit-background-clip: text;
@@ -214,20 +218,24 @@
   @apply h-48 rounded-2xl md:rounded-3xl bg-gradient-to-br from-muted to-muted/50 animate-pulse;
 }
 
-/* Empty */
-.workouts-empty {
+/* Empty state, shared with .workout-detail-empty */
+.workouts-empty,
+.workout-detail-empty {
   @apply flex flex-col items-center justify-center gap-3 py-20 md:py-32 text-center;
 }
 
-.workouts-empty__icon {
+.workouts-empty__icon,
+.workout-detail-empty__icon {
   @apply text-5xl md:text-6xl transform hover:scale-110 transition-transform;
 }
 
-.workouts-empty__title {
+.workouts-empty__title,
+.workout-detail-empty__title {
   @apply text-xl md:text-2xl font-bold text-foreground;
 }
 
-.workouts-empty__sub {
+.workouts-empty__sub,
+.workout-detail-empty__sub {
   @apply text-sm md:text-base text-muted-foreground;
 }
 
@@ -325,6 +333,8 @@
   @apply px-5 py-3 rounded-xl border border-border text-sm font-semibold text-foreground hover:bg-muted transition-all hover:scale-105 active:scale-95;
 }
 
+/* ─── Workout Detail Page ────────────────────────────────────── */
+
 .workout-detail-page {
   @apply min-h-screen px-4 py-6 md:px-6 md:py-8;
 }
@@ -338,17 +348,9 @@
   @apply text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors w-fit flex items-center gap-2;
 }
 
-/* Header */
+/* Header (see .workout-detail-header__title above, shared with .workouts-header__title) */
 .workout-detail-header {
   @apply flex items-start justify-between gap-6;
-}
-
-.workout-detail-header__title {
-  @apply text-3xl md:text-5xl font-bold tracking-tight text-foreground;
-  background: linear-gradient(135deg, var(--foreground) 0%, var(--foreground) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .workout-detail-header__date {
@@ -384,24 +386,7 @@
   @apply px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-sm font-bold hover:shadow-lg transition-all active:scale-95 disabled:opacity-50;
 }
 
-/* Empty */
-.workout-detail-empty {
-  @apply flex flex-col items-center justify-center gap-3 py-20 md:py-32 text-center;
-}
-
-.workout-detail-empty__icon {
-  @apply text-5xl md:text-6xl transform hover:scale-110 transition-transform;
-}
-
-.workout-detail-empty__title {
-  @apply text-xl md:text-2xl font-bold text-foreground;
-}
-
-.workout-detail-empty__sub {
-  @apply text-sm md:text-base text-muted-foreground;
-}
-
-/* Skeleton */
+/* Skeleton (card height intentionally differs from .workouts-skeleton__card) */
 .workout-detail-skeleton {
   @apply flex flex-col gap-6;
 }
@@ -496,6 +481,10 @@
   @apply px-2 py-0.5 rounded-full bg-muted text-xs text-muted-foreground capitalize;
 }
 
+.sets-table__delete {
+  @apply text-xs text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50;
+}
+
 /* ─── Edit Modal ───────────────────────────── */
 
 .modal-overlay {
@@ -538,23 +527,33 @@
   @apply px-3 py-1.5 rounded-lg bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
-.sets-table__delete {
-  @apply text-xs text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50;
-}
-
 /* ─── App Layout ─────────────────────────────────────────────── */
 
+/*
+ * Consolidated from two previously-duplicated rule blocks.
+ * .app-layout: 2nd block's flex-col/md:flex-row/md:h-screen/md:overflow-hidden
+ *   fully superseded the 1st block's plain "flex min-h-screen" in the cascade,
+ *   so the 2nd block's classes are kept (min-h-screen preserved) and the 1st is dropped.
+ * .app-main: 2nd block's pb-24 overrode the 1st block's pb-20 (same specificity,
+ *   declared later), w-full is additive, and unconditional overflow-auto already
+ *   covers what md:overflow-auto was re-declaring, so it's kept only once.
+ */
 .app-layout {
-  @apply flex min-h-screen;
+  @apply flex flex-col min-h-screen md:flex-row md:h-screen md:overflow-hidden;
 }
 
 /* Added bottom padding on mobile to prevent content from hiding behind MobileNav */
 .app-main {
-  @apply flex-1 overflow-auto pb-20 md:pb-0;
+  @apply flex-1 w-full overflow-auto pb-24 md:pb-0;
 }
 
 /* ─── Sidebar ────────────────────────────────────────────────── */
 
+/*
+ * Consolidated from two previously-duplicated rule blocks.
+ * The 2nd block was a strict subset of the 1st (missing min-h-screen), so it
+ * contributed nothing new — the 1st block's full property list is kept as-is.
+ */
 /* Hidden on mobile, visible on md and above */
 .app-sidebar {
   @apply hidden md:flex flex-col shrink-0 min-h-screen border-r border-sidebar-border bg-sidebar px-3 py-5 sticky top-0 h-screen;
@@ -883,11 +882,11 @@ html[data-sidebar-collapsed="true"] .app-sidebar__logout {
   }
 
   .exercise-card__header {
-    @apply flex-col items-start gap-2 p-4;
+    @apply flex items-start justify-between gap-2 p-4;
   }
 
   .exercise-card__delete {
-    @apply self-end mt-2 min-h-[44px] flex items-center;
+    @apply self-center min-h-[44px];
   }
 
   .sets-table {
@@ -937,26 +936,36 @@ html[data-sidebar-collapsed="true"] .app-sidebar__logout {
   }
 }
 
-/* ─── App Layout ─────────────────────────────────────────────── */
+/* ─── Sets List (row cards, replaces table) ─────────────────── */
 
-
-.app-layout {
-  @apply flex flex-col min-h-screen md:flex-row md:h-screen md:overflow-hidden;
+.sets-list {
+  @apply flex flex-col gap-2;
 }
 
-
-.app-main {
-  @apply flex-1 w-full pb-24 md:pb-0 md:overflow-auto;
+.sets-row {
+  @apply flex items-center gap-3 w-full rounded-xl border border-border/50 bg-background px-3 py-2.5;
 }
 
-/* ─── Sidebar ────────────────────────────────────────────────── */
-
-.app-sidebar {
-  @apply hidden md:flex flex-col shrink-0 border-r border-sidebar-border bg-sidebar px-3 py-5 sticky top-0 h-screen;
-  width: 15rem;
-  transition: width 300ms ease-in-out;
+.sets-row__num {
+  @apply shrink-0 w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-semibold text-muted-foreground;
 }
 
-html[data-sidebar-collapsed="true"] .app-sidebar {
-  width: 4rem;
+.sets-row__info {
+  @apply flex-1 flex flex-wrap items-center gap-x-4 gap-y-1 min-w-0;
+}
+
+.sets-row__weight {
+  @apply text-sm font-semibold text-foreground;
+}
+
+.sets-row__reps {
+  @apply text-sm text-muted-foreground;
+}
+
+.sets-row__type {
+  @apply px-2 py-0.5 rounded-full bg-muted text-xs text-muted-foreground capitalize;
+}
+
+.sets-row__delete {
+  @apply shrink-0 w-7 h-7 flex items-center justify-center rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors disabled:opacity-50 text-sm;
 }

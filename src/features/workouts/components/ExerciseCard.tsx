@@ -123,42 +123,27 @@ export function ExerciseCard({
         {sets.length === 0 ? (
           <p className="exercise-card__no-sets">No sets yet</p>
         ) : (
-          <table className="sets-table">
-            <thead>
-              <tr>
-                <th className="sets-table__th">Set</th>
-                <th className="sets-table__th">Weight</th>
-                <th className="sets-table__th">Reps</th>
-                <th className="sets-table__th">Type</th>
-                <th className="sets-table__th"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {sets.map((set, i) => (
-                <tr key={set.id} className="sets-table__row">
-                  <td className="sets-table__td sets-table__td--num">
-                    {i + 1}
-                  </td>
-                  <td className="sets-table__td">
+          <div className="sets-list">
+            {sets.map((set, i) => (
+              <div key={set.id} className="sets-row">
+                <span className="sets-row__num">{i + 1}</span>
+                <div className="sets-row__info">
+                  <span className="sets-row__weight">
                     {set.plateWeight != null ? `${set.plateWeight} kg` : "—"}
-                  </td>
-                  <td className="sets-table__td">{set.reps}</td>
-                  <td className="sets-table__td">
-                    <span className="sets-table__type">{set.type}</span>
-                  </td>
-                  <td className="sets-table__td">
-                    <button
-                      className="sets-table__delete"
-                      onClick={() => deleteSet.mutate(set.id)}
-                      disabled={deleteSet.isPending}
-                    >
-                      {deleteSet.isPending ? "..." : "✕"}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </span>
+                  <span className="sets-row__reps">× {set.reps} reps</span>
+                  <span className="sets-row__type">{set.type}</span>
+                </div>
+                <button
+                  className="sets-row__delete"
+                  onClick={() => deleteSet.mutate(set.id)}
+                  disabled={deleteSet.isPending}
+                >
+                  {deleteSet.isPending ? "..." : "✕"}
+                </button>
+              </div>
+            ))}
+          </div>
         )}
 
         <div className="sets-add">

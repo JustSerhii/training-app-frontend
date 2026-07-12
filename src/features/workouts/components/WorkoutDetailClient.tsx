@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useGetFullWorkout } from "../hooks/use-get-full-workout";
 import { useGetExercises } from "../hooks/use-get-exercises";
@@ -61,6 +61,23 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
   const reorderExercises = useReorderWorkoutExercises(workoutId);
 
   const [exerciseId, setExerciseId] = useState("");
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsSelectOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const [draggedId, setDraggedId] = useState<string | null>(null);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
 
@@ -200,7 +217,6 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
           </div>
         ) : (
           <div className="flex flex-col gap-4">
-            {/* Changed to flex-col on mobile so buttons don't get squished */}
             <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
               <div
                 className="cursor-pointer group flex-1"
@@ -278,7 +294,6 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
               )}
             </button>
 
-            {/* Added flex-col on mobile for timer and count */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <WorkoutTimer
                 savedDuration={isFinished ? workout.duration : undefined}
@@ -314,23 +329,68 @@ export function WorkoutDetailClient({ workoutId }: WorkoutDetailClientProps) {
         <p className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wider">
           Add exercise
         </p>
-        {/* Changed to flex-col on mobile so select and button stack nicely */}
         <div className="flex flex-col gap-3 sm:flex-row">
-          <select
-            className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-            value={exerciseId}
-            onChange={(e) => setExerciseId(e.target.value)}
-            disabled={exercisesLoading}
-          >
-            <option value="">
-              {exercisesLoading ? "Loading..." : "Select an exercise"}
-            </option>
-            {exercises.map((ex) => (
-              <option key={ex.id} value={ex.id}>
-                {ex.title}
-              </option>
-            ))}
-          </select>
+          {/* --- CUSTOM DROPDOWN START --- */}
+          <div className="flex-1 relative" ref={dropdownRef}>
+            <button
+              type="button"
+              onClick={() =>
+                !exercisesLoading && setIsSelectOpen(!isSelectOpen)
+              }
+              disabled={exercisesLoading}
+              className={`w-full flex items-center justify-between rounded-lg border border-border bg-background px-3 py-2 min-h-[44px] text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-colors ${
+                exercisesLoading
+                  ? "opacity-50 cursor-not-allowed"
+                  : "cursor-pointer hover:bg-muted/50"
+              }`}
+            >
+              <span className="truncate">
+                {exercisesLoading
+                  ? "Loading..."
+                  : exerciseId
+                    ? exercises.find((ex) => ex.id === exerciseId)?.title
+                    : "Select an exercise"}
+              </span>
+              <svg
+                className={`w-4 h-4 opacity-50 transition-transform duration-200 ${isSelectOpen ? "rotate-180" : ""}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            {isSelectOpen && (
+              <div className="absolute z-50 w-full mt-1 bg-popover text-popover-foreground border border-border rounded-lg shadow-md max-h-60 overflow-y-auto animate-in fade-in slide-in-from-top-2">
+                <ul className="py-1">
+                  {exercises.map((ex) => (
+                    <li
+                      key={ex.id}
+                      className={`px-3 py-2.5 text-sm cursor-pointer transition-colors hover:bg-muted ${
+                        exerciseId === ex.id
+                          ? "bg-primary/10 text-primary font-medium"
+                          : ""
+                      }`}
+                      onClick={() => {
+                        setExerciseId(ex.id);
+                        setIsSelectOpen(false);
+                      }}
+                    >
+                      {ex.title}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+          {/* --- CUSTOM DROPDOWN END --- */}
+
           <button
             onClick={handleAddExercise}
             disabled={createExercise.isPending || !exerciseId}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useGetProfile, useGetRecords } from "../hooks";
 import { useUpdateProfile } from "../hooks/use-update-profile";
+import { toast } from "sonner";
 
 export function ProfileClient() {
   const { data: profile, isLoading: profileLoading } = useGetProfile();
@@ -28,7 +29,8 @@ export function ProfileClient() {
     if (editName !== profile?.name) payload.name = editName;
     if (editWeight !== (profile?.bodyWeight?.toString() ?? "")) {
       const val = editWeight === "" ? undefined : parseFloat(editWeight);
-      if (val !== undefined && !isNaN(val)) payload.bodyWeight = val;
+      if (val !== undefined && !isNaN(val) && val > 0) payload.bodyWeight = val;
+      else toast.error("Weight must be valid");
     }
     if (Object.keys(payload).length > 0) {
       updateProfile.mutate(payload, { onSuccess: () => setIsEditing(false) });
@@ -37,10 +39,20 @@ export function ProfileClient() {
     }
   };
 
+  // Skeleton for better Cumulative Layout Shift (CLS)
   if (isLoading) {
     return (
-      <div className="p-8 text-center text-muted-foreground animate-pulse">
-        Loading your progress...
+      <div className="p-6 md:p-8 max-w-4xl mx-auto">
+        <div className="mb-8">
+          <div className="h-9 w-40 rounded-lg bg-muted animate-pulse mb-2" />
+          <div className="h-5 w-56 rounded-lg bg-muted animate-pulse" />
+        </div>
+        <div className="h-32 rounded-xl border border-border bg-card mb-8" />
+        <div className="space-y-4">
+          <div className="h-24 rounded-xl border border-border bg-card" />
+          <div className="h-24 rounded-xl border border-border bg-card" />
+          <div className="h-24 rounded-xl border border-border bg-card" />
+        </div>
       </div>
     );
   }
@@ -110,7 +122,7 @@ export function ProfileClient() {
               <h2 className="text-2xl font-bold group-hover:text-primary transition-colors">
                 {profile.name}
               </h2>
-              <div className="flex items-center gap-2 mt-2 text-muted-foreground">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 mt-2 text-muted-foreground">
                 <span className="text-sm">
                   Weight:{" "}
                   {profile.bodyWeight != null
@@ -118,7 +130,7 @@ export function ProfileClient() {
                     : "Not set"}
                 </span>
                 {profile.bodyWeight == null && (
-                  <span className="text-xs text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full">
+                  <span className="text-xs text-amber-500 bg-amber-500/10 px-2 py-1 rounded-lg w-fit">
                     Set weight for accurate bodyweight exercise tracking
                   </span>
                 )}
